@@ -1,0 +1,46 @@
+<!-- chatbot.html (HTML template for the chatbot interface) -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ChatBot</title>
+    <!-- Add your CSS and JavaScript includes here -->
+</head>
+<body>
+    <h1>ChatBot</h1>
+    <div id="chat-container">
+        <!-- Chat history will be displayed here -->
+    </div>
+    <input type="text" id="user-input" placeholder="Escribe tu mensaje..." autofocus>
+    <button onclick="sendMessage()">Enviar</button>
+
+    <script>
+        function sendMessage() {
+            // Get user input
+            var userInput = document.getElementById("user-input").value;
+
+            // Display user message in chat container
+            var userMessage = '<div class="user-message">Tú: ' + userInput + '</div>';
+            document.getElementById("chat-container").innerHTML += userMessage;
+
+            // Send user message to the chatbot API
+            fetch("/chatbot/", {
+                method: "POST",
+                body: JSON.stringify({ message: userInput }),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    // Display chatbot response in chat container
+                    var botMessage = '<div class="bot-message">ChatBot: ' + data.message + '</div>';
+                    document.getElementById("chat-container").innerHTML += botMessage;
+                });
+
+            // Clear user input field
+            document.getElementById("user-input").value = "";
+        }
+    </script>
+</body>
+</html>

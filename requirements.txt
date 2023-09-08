@@ -1,0 +1,11 @@
+# requirements.txt
+
+# List of required Python packages
+Django==3.2.5
+nltk==3.6.3
+PyPDF2==1.26.0
+python-docx==0.8.11
+pytesseract==0.3.8
+opencv-python==4.5.3.56
+
+# Add any additional packages and versions as needed
